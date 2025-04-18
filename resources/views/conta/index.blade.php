@@ -7,9 +7,9 @@
     <title>Laravel</title>
 </head>
 <body>
-    <a href="{{ route('conta.create') }}">Cadastrar</a><br>
      <h1>Listar Contas</h1>
-
+     
+     <a href="{{ route('conta.create') }}">Cadastrar</a><br>
      <a href="{{ route('conta.show') }}">Visualizar</a><br>
      <a href="{{ route('conta.edit') }}">Editar</a><br>
      {{-- <a href="{{ route('conta.destroy') }}">Apagar</a><br> --}}

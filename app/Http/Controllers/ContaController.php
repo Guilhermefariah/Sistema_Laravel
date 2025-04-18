@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Conta;
 use Illuminate\Http\Request;
 
 class ContaController extends Controller
@@ -19,9 +20,12 @@ class ContaController extends Controller
     }
 
     // Salvar Conta no Banco de Dados
-    public function store()
+    public function store(Request $request)
     {
-        dd('Conta cadastrada com sucesso!');
+        // Cadastrar no banco de dados na tabela contas os valores de todos os campos
+        Conta::create($request->all());
+        
+        return redirect()->route('conta.show')->with('success', 'Conta cadastrada com sucesso!');
     }
 
     // Detalhes Conta
