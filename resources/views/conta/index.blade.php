@@ -14,14 +14,15 @@
     <h1>Listar Contas</h1>
 
     {{-- <a href="{{ route('conta.show') }}">Visualizar</a><br>
-     <a href="{{ route('conta.edit') }}">Editar</a><br> --}}
-    {{-- <a href="{{ route('conta.destroy') }}">Apagar</a><br> --}}
+    <a href="{{ route('conta.edit') }}">Editar</a><br>
+    <a href="{{ route('conta.destroy') }}">Apagar</a><br><br> --}}
 
     @forelse ($contas as $conta)
         ID: {{ $conta->id }}<br>
         Nome: {{ $conta->nome }}<br>
         Valor: {{ 'R$' . number_format($conta->valor, 2, ',', '.') }}<br>
-        Vencimento: {{ \Carbon\Carbon::parse($conta->vencimento)->format('d/m/Y') }}<br>
+        Vencimento: {{ \Carbon\Carbon::parse($conta->vencimento)->format('d/m/Y') }}<br><br>
+        <a href="{{ route('conta.show', $conta) }}">Visualizar</a><br><br>
         <hr>
     @empty
         <span style="color: #ff0000;">Nenhuma conta cadastrada!</span>

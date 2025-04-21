@@ -11,7 +11,7 @@ class ContaController extends Controller
     public function index()
     {
         // Listar todas as contas do banco de dados
-        $contas = Conta::orderBy('id', 'desc')->get();
+        $contas = Conta::orderByDesc('created_at')->get();
 
         return view('conta.index', [
             'contas' => $contas,
@@ -28,15 +28,17 @@ class ContaController extends Controller
     public function store(Request $request)
     {
         // Cadastrar no banco de dados na tabela contas os valores de todos os campos
-        Conta::create($request->all());
+        $conta = Conta::create($request->all());
 
-        return redirect()->route('conta.show')->with('success', 'Conta cadastrada com sucesso!');
+        return redirect()->route('conta.show', ['conta' => $conta->id])->with('success', 'Conta cadastrada com sucesso!');
     }
 
     // Detalhes Conta
-    public function show()
+    public function show(Conta $conta)
     {
-        return view('conta.show');
+        return view('conta.show', [
+            'conta' => $conta,
+        ]);
     }
 
     // Carregar Formulário de Editar Conta
