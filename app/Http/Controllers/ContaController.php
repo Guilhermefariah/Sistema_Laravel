@@ -10,7 +10,12 @@ class ContaController extends Controller
     // Listar Conta
     public function index()
     {
-        return view('conta.index');
+        // Listar todas as contas do banco de dados
+        $contas = Conta::orderBy('id', 'desc')->get();
+
+        return view('conta.index', [
+            'contas' => $contas,
+        ]);
     }
 
     // Cadastrar Nova Conta
@@ -24,7 +29,7 @@ class ContaController extends Controller
     {
         // Cadastrar no banco de dados na tabela contas os valores de todos os campos
         Conta::create($request->all());
-        
+
         return redirect()->route('conta.show')->with('success', 'Conta cadastrada com sucesso!');
     }
 
