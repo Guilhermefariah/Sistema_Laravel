@@ -6,6 +6,7 @@ use App\Http\Requests\ContaRequest;
 use App\Models\Conta;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ContaController extends Controller
 {
@@ -63,13 +64,23 @@ class ContaController extends Controller
             // Editar as informações do registro no banco de dados
             $conta->update([
                 'nome' => $request->nome,
-                'valor' => $request->valor,
+                'valor' => $request->valo,
                 'vencimento' => $request->vencimento,
+            ]);
+
+            // Salvar Log
+            Log::info('Conta editada com sucesso', [
+                'id' => $conta->id,
+                'conta' => $conta,
             ]);
 
             // Redirecionar para a página de detalhes da conta editada
             return redirect()->route('conta.show', ['conta' => $conta->id])->with('success', 'Conta editada com sucesso!');
         } catch (Exception $e) {
+
+            // Salvar Log de erro
+            Log::warning('Erro ao editar a conta', ['error' => $e->getMessage()]);
+
             // Redirecionar para a página de detalhes da conta com erro
             return back()->withInput()->with('error', 'Erro ao editar a conta: ' . $e->getMessage());
         }
