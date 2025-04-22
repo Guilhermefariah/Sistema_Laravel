@@ -9,7 +9,11 @@
 </head>
 
 <body>
-    <a href="{{ route('conta.index') }}">Listar</a><br>
+    <a href="{{ route('conta.index') }}">
+        <button type="button">
+            Listar
+        </button>
+    </a><br>
 
     <h1>Cadastrar Conta</h1>
 
@@ -28,7 +32,8 @@
         <input type="text" name="nome" id="nome" placeholder="Nome da conta" required><br><br>
 
         <label>Valor: </label>
-        <input type="text" name="valor" id="valor" placeholder="Usar '.' separar real do centavo" required><br><br>
+        <input type="text" name="valor" id="valor" placeholder="Usar '.' separar real do centavo"
+            required><br><br>
 
         <label>Vencimento: </label>
         <input type="date" name="vencimento" id="vencimento" required><br><br>

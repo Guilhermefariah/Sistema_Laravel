@@ -72,8 +72,12 @@ class ContaController extends Controller
     }
 
     // Excluir Conta do Banco de Dados
-    public function destroy()
+    public function destroy(Conta $conta)
     {
-        dd('Conta excluída com sucesso!');
+        // Excluir o registro do banco de dados
+        $conta->delete();
+
+        // Redirecionar para a página de listagem de contas
+        return redirect()->route('conta.index')->with('success', 'Conta excluida com sucesso!');
     }
 }
