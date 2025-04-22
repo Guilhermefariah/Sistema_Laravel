@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ContaRequest;
 use App\Models\Conta;
+use Exception;
 use Illuminate\Http\Request;
 
 class ContaController extends Controller
@@ -58,17 +59,20 @@ class ContaController extends Controller
     {
         // Validar os dados do formulário
         $request->validated();
+        try {
+            // Editar as informações do registro no banco de dados
+            $conta->update([
+                'nome' => $request->nome,
+                'valor' => $request->valor,
+                'vencimento' => $request->vencimento,
+            ]);
 
-        // Editar as informações do registro no banco de dados
-        $conta->update([
-            'nome' => $request->nome,
-            'valor' => $request->valor,
-            'vencimento' => $request->vencimento,
-        ]);
-
-        // Redirecionar para a página de detalhes da conta editada
-        return redirect()->route('conta.show', ['conta' => $conta->id])->with('success', 'Conta editada com sucesso!');
-
+            // Redirecionar para a página de detalhes da conta editada
+            return redirect()->route('conta.show', ['conta' => $conta->id])->with('success', 'Conta editada com sucesso!');
+        } catch (Exception $e) {
+            // Redirecionar para a página de detalhes da conta com erro
+            return back()->withInput()->with('error', 'Erro ao editar a conta: ' . $e->getMessage());
+        }
     }
 
     // Excluir Conta do Banco de Dados

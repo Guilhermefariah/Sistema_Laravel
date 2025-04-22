@@ -22,6 +22,13 @@
 
     <h1>Editar Conta</h1>
 
+    {{-- Verificar se existe uma mensagem de erro na sessão --}}
+    @if (session('error'))
+        <span style="color: #ff0000;">
+            {{ session('error') }}
+        </span>
+    @endif
+
     @if ($errors->any())
         <span style="color: #ff0000;">
             @foreach ($errors->all() as $error)
