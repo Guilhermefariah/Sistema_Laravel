@@ -22,7 +22,8 @@
         Nome: {{ $conta->nome }}<br>
         Valor: {{ 'R$' . number_format($conta->valor, 2, ',', '.') }}<br>
         Vencimento: {{ \Carbon\Carbon::parse($conta->vencimento)->format('d/m/Y') }}<br><br>
-        <a href="{{ route('conta.show', $conta) }}">Visualizar</a><br><br>
+        <a href="{{ route('conta.show', ['conta' => $conta->id]) }}">Visualizar</a><br>
+        <a href="{{ route('conta.edit', ['conta' => $conta->id]) }}">Editar</a><br>
         <hr>
     @empty
         <span style="color: #ff0000;">Nenhuma conta cadastrada!</span>

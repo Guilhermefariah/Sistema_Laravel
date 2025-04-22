@@ -13,6 +13,14 @@
 
     <h1>Cadastrar Conta</h1>
 
+    @if ($errors->any())
+        <span style="color: #ff0000;">
+            @foreach ($errors->all() as $error)
+                {{ $error }}<br>
+            @endforeach
+        </span>
+    @endif
+
     <form action="{{ route('conta.store') }}" method="POST">
         @csrf
 
