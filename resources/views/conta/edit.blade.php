@@ -1,19 +1,12 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+@extends('layouts.admin')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Laravel</title>
-</head>
+@section('content')
 
-<body>
     <a href="{{ route('conta.index') }}">
         <button type="button">
             Listar
         </button>
-    </a><br>
+    </a><br><br>
     <a href="{{ route('conta.show', ['conta' => $conta->id]) }}">
         <button type="button">
             Visualizar
@@ -43,8 +36,7 @@
         @method('PUT')
 
         <label>Nome: </label>
-        <input type="text" name="nome" id="nome" placeholder="Nome da conta"
-            value="{{ $conta->nome }}"><br><br>
+        <input type="text" name="nome" id="nome" placeholder="Nome da conta" value="{{ $conta->nome }}"><br><br>
 
         <label>Valor: </label>
         <input type="text" name="valor" id="valor" placeholder="Usar '.' separar real do centavo"
@@ -55,8 +47,4 @@
 
         <button type="submit">Salvar</button>
     </form>
-
-    <script src="{{ asset('js/custom.js') }}"></script>
-</body>
-
-</html>
+@endsection

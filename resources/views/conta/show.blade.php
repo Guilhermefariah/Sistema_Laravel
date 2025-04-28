@@ -1,19 +1,11 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+@extends('layouts.admin')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Laravel</title>
-</head>
-
-<body>
+@section('content')
     <a href="{{ route('conta.index') }}">
         <button type="button">
             Listar
         </button>
-    </a><br>
+    </a><br><br>
     <a href="{{ route('conta.edit', ['conta' => $conta->id]) }}">
         <button type="button">
             Editar
@@ -35,7 +27,4 @@
     Vencimento: {{ \Carbon\Carbon::parse($conta->vencimento)->format('d/m/Y') }}<br><br>
     Cadastrado: {{ \Carbon\Carbon::parse($conta->created_at)->format('d/m/Y H:i:s') }}<br>
     Atualizado: {{ \Carbon\Carbon::parse($conta->updated_at)->format('d/m/Y H:i:s') }}<br>
-
-</body>
-
-</html>
+@endsection
