@@ -48,13 +48,15 @@
 
         <label>Valor: </label>
         <input type="text" name="valor" id="valor" placeholder="Usar '.' separar real do centavo"
-            value="{{ $conta->valor }}"><br><br>
+            value="{{ isset($conta->valor) ? number_format($conta->valor, '2', ',', '.') : '' }}"><br><br>
 
         <label>Vencimento: </label>
         <input type="date" name="vencimento" id="vencimento" value="{{ $conta->vencimento }}"><br><br>
 
         <button type="submit">Salvar</button>
     </form>
+
+    <script src="{{ asset('js/custom.js') }}"></script>
 </body>
 
 </html>

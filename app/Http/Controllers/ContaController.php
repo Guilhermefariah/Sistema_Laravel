@@ -33,10 +33,23 @@ class ContaController extends Controller
         // Validar os dados do formulário
         $request->validated();
 
-        // Cadastrar no banco de dados na tabela contas os valores de todos os campos
-        $conta = Conta::create($request->all());
+        try {
+            // Cadastrar no banco de dados na tabela contas os valores de todos os campos
+            $conta = Conta::create([
+                'nome' => $request->nome,
+                'valor' => str_replace(',', '.', str_replace('.', '', $request->valor)),
+                'vencimento' => $request->vencimento,
+            ]);
 
-        return redirect()->route('conta.show', ['conta' => $conta->id])->with('success', 'Conta cadastrada com sucesso!');
+            return redirect()->route('conta.show', ['conta' => $conta->id])->with('success', 'Conta cadastrada com sucesso!');
+        } catch (Exception $e) {
+
+            // Salvar Log de erro
+            Log::warning('Erro ao cadastrar a conta', ['error' => $e->getMessage()]);
+
+            // Redirecionar para a página de detalhes da conta com erro
+            return back()->withInput()->with('error', 'Erro ao cadastrar a conta: ' . $e->getMessage());
+        }
     }
 
     // Detalhes Conta
@@ -64,7 +77,7 @@ class ContaController extends Controller
             // Editar as informações do registro no banco de dados
             $conta->update([
                 'nome' => $request->nome,
-                'valor' => $request->valo,
+                'valor' => str_replace(',', '.', str_replace('.', '', $request->valor)),
                 'vencimento' => $request->vencimento,
             ]);
 
