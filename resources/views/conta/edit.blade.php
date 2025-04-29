@@ -1,50 +1,81 @@
 @extends('layouts.admin')
 
 @section('content')
+    <div class="card mt-4 mb-4 border-light shadow rounded">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h1 class="h4 m-0">Editar Conta</h1>
+            <div class="d-flex gap-2">
+                <a href="{{ route('conta.index') }}" class="btn btn-primary btn-sm rounded shadow-sm">Listar</a>
+                <a href="{{ route('conta.show', $conta->id) }}" class="btn btn-success btn-sm rounded shadow-sm">Visualizar</a>
+            </div>
+        </div>
 
-    <a href="{{ route('conta.index') }}">
-        <button type="button">
-            Listar
-        </button>
-    </a><br><br>
-    <a href="{{ route('conta.show', ['conta' => $conta->id]) }}">
-        <button type="button">
-            Visualizar
-        </button>
-    </a><br>
+        @if (session('success'))
+            <div class="alert alert-success m-3">
+                {{ session('success') }}
+            </div>
+        @endif
 
-    <h1>Editar Conta</h1>
+        @if (session('error'))
+            <div class="alert alert-danger m-3">
+                {{ session('error') }}
+            </div>
+        @endif
 
-    {{-- Verificar se existe uma mensagem de erro na sessão --}}
-    @if (session('error'))
-        <span style="color: #ff0000;">
-            {{ session('error') }}
-        </span>
-    @endif
+        @if ($errors->any())
+            <div class="alert alert-danger m-3">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-    @if ($errors->any())
-        <span style="color: #ff0000;">
-            @foreach ($errors->all() as $error)
-                {{ $error }}<br>
-            @endforeach
-        </span>
-    @endif
+        <div class="card-body">
+            <form action="{{ route('conta.update', $conta->id) }}" method="POST" class="row g-3">
+                @csrf
+                @method('PUT')
 
-    <form action="{{ route('conta.update', ['conta' => $conta->id]) }}" method="POST">
-        @csrf
+                <div class="col-12">
+                    <label for="nome" class="form-label">Nome:</label>
+                    <input
+                        type="text"
+                        name="nome"
+                        id="nome"
+                        class="form-control"
+                        placeholder="Nome da conta"
+                        value="{{ old('nome', $conta->nome) }}"
+                    >
+                </div>
 
-        @method('PUT')
+                <div class="col-12">
+                    <label for="valor" class="form-label">Valor:</label>
+                    <input
+                        type="text"
+                        name="valor"
+                        id="valor"
+                        class="form-control"
+                        placeholder="Valor da conta"
+                        value="{{ old('valor', number_format($conta->valor, 2, ',', '.')) }}"
+                    >
+                </div>
 
-        <label>Nome: </label>
-        <input type="text" name="nome" id="nome" placeholder="Nome da conta" value="{{ $conta->nome }}"><br><br>
+                <div class="col-12">
+                    <label for="vencimento" class="form-label">Vencimento:</label>
+                    <input
+                        type="date"
+                        name="vencimento"
+                        id="vencimento"
+                        class="form-control"
+                        value="{{ old('vencimento', $conta->vencimento) }}"
+                    >
+                </div>
 
-        <label>Valor: </label>
-        <input type="text" name="valor" id="valor" placeholder="Usar '.' separar real do centavo"
-            value="{{ isset($conta->valor) ? number_format($conta->valor, '2', ',', '.') : '' }}"><br><br>
-
-        <label>Vencimento: </label>
-        <input type="date" name="vencimento" id="vencimento" value="{{ $conta->vencimento }}"><br><br>
-
-        <button type="submit">Salvar</button>
-    </form>
+                <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-success btn-sm rounded shadow-sm">Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
 @endsection

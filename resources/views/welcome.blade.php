@@ -7,8 +7,8 @@
         <link rel="stylesheet" href="style.css">
     </head>
 
-    <body>
+    <body style="text-align: center">
         <h1>Projeto Laravel</h1>
-        <a href="{{ route('conta.index') }}">Listar Contas</a>
+        <a style="color: #000" href="{{ route('conta.index') }}">Listar Contas</a>
     </body>
 </html>

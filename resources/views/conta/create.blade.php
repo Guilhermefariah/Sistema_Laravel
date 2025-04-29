@@ -1,43 +1,77 @@
 @extends('layouts.admin')
 
 @section('content')
+    <div class="card mt-4 mb-4 border-light shadow rounded">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h1 class="h4 m-0">Cadastrar Conta</h1>
+            <a href="{{ route('conta.index') }}" class="btn btn-primary btn-sm rounded shadow-sm">Listar</a>
+        </div>
 
-    <a href="{{ route('conta.index') }}">
-        <button type="button">
-            Listar
-        </button>
-    </a><br>
+        @if (session('success'))
+            <div class="alert alert-success m-3">
+                {{ session('success') }}
+            </div>
+        @endif
 
-    <h1>Cadastrar Conta</h1>
+        @if (session('error'))
+            <div class="alert alert-danger m-3">
+                {{ session('error') }}
+            </div>
+        @endif
 
-    {{-- Verificar se existe uma mensagem de erro na sessão --}}
-    @if (session('error'))
-        <span style="color: #ff0000;">
-            {{ session('error') }}
-        </span>
-    @endif
+        @if ($errors->any())
+            <div class="alert alert-danger m-3">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-    @if ($errors->any())
-        <span style="color: #ff0000;">
-            @foreach ($errors->all() as $error)
-                {{ $error }}<br>
-            @endforeach
-        </span>
-    @endif
+        <div class="card-body">
+            <form action="{{ route('conta.store') }}" method="POST" class="row g-3">
+                @csrf
 
-    <form action="{{ route('conta.store') }}" method="POST">
-        @csrf
+                <div class="col-12">
+                    <label for="nome" class="form-label">Nome:</label>
+                    <input
+                        type="text"
+                        name="nome"
+                        id="nome"
+                        class="form-control"
+                        placeholder="Nome da conta"
+                        value="{{ old('nome') }}"
+                    >
+                </div>
 
-        <label>Nome: </label>
-        <input type="text" name="nome" id="nome" placeholder="Nome da conta" required><br><br>
+                <div class="col-12">
+                    <label for="valor" class="form-label">Valor:</label>
+                    <input
+                        type="text"
+                        name="valor"
+                        id="valor"
+                        class="form-control"
+                        placeholder="Valor da conta"
+                        value="{{ old('valor') }}"
+                    >
+                </div>
 
-        <label>Valor: </label>
-        <input type="text" name="valor" id="valor" placeholder="Usar '.' separar real do centavo" required><br><br>
+                <div class="col-12">
+                    <label for="vencimento" class="form-label">Vencimento:</label>
+                    <input
+                        type="date"
+                        name="vencimento"
+                        id="vencimento"
+                        class="form-control"
+                        value="{{ old('vencimento') }}"
+                    >
+                </div>
 
-        <label>Vencimento: </label>
-        <input type="date" name="vencimento" id="vencimento" required><br><br>
-
-        <button type="submit">Cadastrar</button>
-    </form>
-
+                <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-success btn-sm rounded shadow-sm">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 @endsection
