@@ -50,5 +50,6 @@
                 @endforelse
             </tbody>
         </table>
+        {{ $contas->onEachSide(5)->links() }}
     </div>
 @endsection

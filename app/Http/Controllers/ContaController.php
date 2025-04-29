@@ -14,7 +14,7 @@ class ContaController extends Controller
     public function index()
     {
         // Listar todas as contas do banco de dados
-        $contas = Conta::orderByDesc('created_at')->get();
+        $contas = Conta::orderBy('id')->paginate(5);
 
         return view('conta.index', [
             'contas' => $contas,
