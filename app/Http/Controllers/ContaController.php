@@ -11,13 +11,19 @@ use Illuminate\Support\Facades\Log;
 class ContaController extends Controller
 {
     // Listar Conta
-    public function index()
+    public function index(Request $request)
     {
         // Listar todas as contas do banco de dados
-        $contas = Conta::orderBy('id')->paginate(5);
+        $contas = Conta::when($request->has('nome'), function ($whenQuery) use ($request) {
+            $whenQuery->where('nome', 'like', '%' . $request->nome . '%');
+        })
+        ->orderBy('id')
+        ->paginate(5)
+        ->withQueryString();
 
         return view('conta.index', [
             'contas' => $contas,
+            'nome' => $request->nome,
         ]);
     }
 
