@@ -11,17 +11,20 @@
                 <div class="row">
                     <div class="col-md-3 col-sm-12">
                         <label for="nome" class="form-label">Nome</label>
-                        <input type="text" name="nome" id="nome" class="form-control" value="{{ $nome }}" placeholder="Nome da conta">
+                        <input type="text" name="nome" id="nome" class="form-control" value="{{ $nome }}"
+                            placeholder="Nome da conta">
                     </div>
 
                     <div class="col-md-3 col-sm-12">
                         <label for="data_inicio" class="form-label">Data Inicio</label>
-                        <input type="date" name="data_inicio" id="data_inicio" class="form-control" value="{{ $data_inicio }}">
+                        <input type="date" name="data_inicio" id="data_inicio" class="form-control"
+                            value="{{ $data_inicio }}">
                     </div>
 
                     <div class="col-md-3 col-sm-12">
                         <label for="data_fim" class="form-label">Data Fim</label>
-                        <input type="date" name="data_fim" id="data_fim" class="form-control" value="{{ $data_fim }}">
+                        <input type="date" name="data_fim" id="data_fim" class="form-control"
+                            value="{{ $data_fim }}">
                     </div>
 
 
@@ -38,6 +41,7 @@
         <div class="card-header d-flex justify-content-between align-items-center">
             <h1 class="h4 m-0">Listar Contas</h1>
             <a href="{{ route('conta.create') }}" class="btn btn-success btn-sm">+ Cadastrar</a>
+            <a href="{{ route('conta.gerar-pdf') }}" class="btn btn-warning btn-sm">+ Gerar PDF</a>
         </div>
     </div>
 

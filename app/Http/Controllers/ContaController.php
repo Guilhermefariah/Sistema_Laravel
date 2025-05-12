@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ContaRequest;
 use App\Models\Conta;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -17,15 +18,15 @@ class ContaController extends Controller
         $contas = Conta::when($request->has('nome'), function ($whenQuery) use ($request) {
             $whenQuery->where('nome', 'like', '%' . $request->nome . '%');
         })
-        ->when($request->filled('data_inicio'), function ($whenQuery) use ($request) {
-            $whenQuery->where('vencimento', '>=', \Carbon\Carbon::parse($request->data_inicio)->format('Y-m-d'));
-        })
-        ->when($request->filled('data_fim'), function ($whenQuery) use ($request) {
-            $whenQuery->where('vencimento', '<=', \Carbon\Carbon::parse($request->data_fim)->format('Y-m-d'));
-        })
-        ->orderBy('id')
-        ->paginate(5)
-        ->withQueryString();
+            ->when($request->filled('data_inicio'), function ($whenQuery) use ($request) {
+                $whenQuery->where('vencimento', '>=', \Carbon\Carbon::parse($request->data_inicio)->format('Y-m-d'));
+            })
+            ->when($request->filled('data_fim'), function ($whenQuery) use ($request) {
+                $whenQuery->where('vencimento', '<=', \Carbon\Carbon::parse($request->data_fim)->format('Y-m-d'));
+            })
+            ->orderBy('id')
+            ->paginate(5)
+            ->withQueryString();
 
         return view('conta.index', [
             'contas' => $contas,
@@ -121,5 +122,15 @@ class ContaController extends Controller
 
         // Redirecionar para a página de listagem de contas
         return redirect()->route('conta.index')->with('success', 'Conta excluida com sucesso!');
+    }
+
+    public function gerarPdf()
+    {
+        // Listar todas as contas do banco de dados
+        $contas = Conta::orderByDesc('created_at')->get();
+
+        $pdf = PDF::loadView('conta.gerar-pdf', ['contas' => $contas])->setPaper('a4', 'landscape');
+
+        return $pdf->download('invoice.pdf');
     }
 }
