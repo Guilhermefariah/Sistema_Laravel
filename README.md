@@ -1,33 +1,8 @@
 # Sistema Laravel
 
 Bem-vindo ao **Sistema Laravel**, um projeto desenvolvido para demonstrar as melhores práticas de desenvolvimento web utilizando o framework [Laravel](https://laravel.com/). Este sistema serve como base para sistemas administrativos, aplicações empresariais ou qualquer solução robusta que precise de escalabilidade, segurança e flexibilidade.
-
-## Índice
-
-- [Sobre o Projeto](#sobre-o-projeto)
-- [Funcionalidades](#funcionalidades)
-- [Tecnologias Utilizadas](#tecnologias-utilizadas)
-- [Pré-requisitos](#pré-requisitos)
-- [Instalação](#instalação)
-- [Como Usar](#como-usar)
-- [Estrutura do Projeto](#estrutura-do-projeto)
-- [Contribuindo](#contribuindo)
-- [Licença](#licença)
-- [Contato](#contato)
-
-## Sobre o Projeto
-
-Este projeto foi criado com o intuito de prover uma estrutura moderna e robusta para sistemas web em Laravel, facilitando a implementação de funcionalidades como autenticação, gerenciamento de usuários, permissões, dashboards, e muito mais.
-
-## Funcionalidades
-
-- Autenticação de usuários (login, registro, recuperação de senha)
-- Gerenciamento de usuários e permissões
-- CRUD completo para entidades principais
-- Dashboard administrativo
-- Integração com banco de dados relacional
-- Layout responsivo
-- Possibilidade de expansão com módulos adicionais
+  
+<img width="1920" height="831" alt="image" src="https://github.com/user-attachments/assets/3b61bfea-689a-456d-a387-a43aac51e44a" />
 
 ## Tecnologias Utilizadas
 
